@@ -3,7 +3,6 @@ Tests for starting a server in Python code
 """
 
 import pytest
-import re
 import stanza.server as corenlp
 from stanza.server.client import AnnotationException
 import time
@@ -153,11 +152,6 @@ def annotate_and_time(client, text, properties={}):
     ann = client.annotate(text, properties=properties, output_format="text")
     end = time.time()
     return {'annotation': ann, 'start_time': start, 'end_time': end}
-
-def compare_ignoring_whitespace(predicted, expected):
-    predicted = re.sub('[ \t]+', ' ', predicted.strip())
-    expected = re.sub('[ \t]+', ' ', expected.strip())
-    assert predicted == expected
 
 def test_preload():
     """ Test that the default annotators load fully immediately upon server start """
